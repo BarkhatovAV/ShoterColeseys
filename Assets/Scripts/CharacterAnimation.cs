@@ -8,8 +8,6 @@ public class CharacterAnimation : MonoBehaviour
     private const string Speed = "Speed";
     [SerializeField] private CheckFly _checkFly;
     [SerializeField] private Animator _animator;
-    //[SerializeField] private Rigidbody _rigidbody;
-    //[SerializeField] private float _maxSpeed;
     [SerializeField] private Character _character;
 
     private void Update()

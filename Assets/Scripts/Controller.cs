@@ -7,6 +7,7 @@ public class Controller : MonoBehaviour
     [SerializeField] private PlayerCharacter _player;
     [SerializeField] private float _mouseSensetivity = 2f;
     [SerializeField] private PlayerGun _gun;
+    [SerializeField] private SquatController _squatController;
 
     private MultiplayerManager _multiplayerManager;
 
@@ -27,6 +28,9 @@ public class Controller : MonoBehaviour
 
         bool isShoot = Input.GetMouseButton(0);
 
+        bool isSquat = Input.GetKeyDown(KeyCode.LeftAlt);
+
+        _squatController.SetInputSquat(isSquat);
         _player.SetInput(inputH, inputV, mouseX * _mouseSensetivity);
         _player.RotateX(-mouseY * _mouseSensetivity);
 
