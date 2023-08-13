@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Speed>k__BackingField: 5
+  <MaxHealth>k__BackingField: 10
   _rigidbody: {fileID: 7562340154534603094}
   _head: {fileID: 4773347649284689073}
   _cameraPoint: {fileID: 3026731952666284950}
@@ -151,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bulletPrefab: {fileID: 3236923859759213670, guid: a1ebb442d79e1b746a072c4a81c966f4, type: 3}
+  _damage: 2
   _bulletPoint: {fileID: 5482385723589738893}
   _bulletSpeed: 15
   _shootDelay: 0.2
