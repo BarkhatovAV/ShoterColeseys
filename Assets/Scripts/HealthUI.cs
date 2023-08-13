@@ -10,7 +10,7 @@ public class HealthUI : MonoBehaviour
         _defaultWidth = _filledImage.sizeDelta.x;
     }
 
-    public void UpdateHealth(int max, int current)
+    public void UpdateHealth(float max, int current)
     {
         float percent = current / max;
 
