@@ -9,6 +9,8 @@ public class EnemyCharacter : Character
 
     public Vector3 targetPosition { get; private set; } = Vector3.zero;
     private float _velocityMagnitude = 0;
+    private Coroutine _coroutineY;
+    private Coroutine _coroutineX;
 
     private void Start()
     {
@@ -50,13 +52,41 @@ public class EnemyCharacter : Character
 
     public void SetSpeed(float value) => Speed = value;
 
-    public void SetRotateX(float value)
+    public void SetRotateX(float value, float averageInterval)
     {
-        _head.localEulerAngles = new Vector3(value, 0, 0);
+        if (_coroutineX != null)
+            StopCoroutine(_coroutineX);
+
+        _coroutineX = StartCoroutine(RotationX());
+
+        IEnumerator RotationX()
+        {
+            while (_head.localEulerAngles.x != value)
+            {
+                yield return null;
+                _head.localEulerAngles = new Vector3(Mathf.LerpAngle(_head.localEulerAngles.x, value, averageInterval), 0, 0);
+            }
+        }
+
+        
     }
 
-    public void SetRotateY(float value)
+    public void SetRotateY(float value, float averageInterval)
     {
-        transform.localEulerAngles = new Vector3(0, value, 0);
+        print(value);
+        if (_coroutineY != null)
+            StopCoroutine(_coroutineY);
+
+        _coroutineY = StartCoroutine(RotationY());
+
+        IEnumerator RotationY()
+        {
+            while (transform.localEulerAngles.y != value)
+            {
+                yield return null;
+                transform.localEulerAngles = new Vector3(0, Mathf.LerpAngle( transform.localEulerAngles.y, value , averageInterval), 0);
+            }
+        }
+        //transform.localEulerAngles = Vector3.Lerp(new Vector3(0, transform.localEulerAngles.y, 0), new Vector3(0, value, 0), averageInterval / 2);
     }
 }

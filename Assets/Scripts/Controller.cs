@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ public class Controller : MonoBehaviour
     [SerializeField] private PlayerCharacter _player;
     [SerializeField] private float _mouseSensetivity = 2f;
     [SerializeField] private PlayerGun _gun;
-    [SerializeField] private SquatController _squatController;
+    [SerializeField] private CrouchController _crouchController;
 
     private MultiplayerManager _multiplayerManager;
 
@@ -30,7 +31,12 @@ public class Controller : MonoBehaviour
 
         bool isSquat = Input.GetKeyDown(KeyCode.LeftAlt);
 
-        _squatController.SetInputSquat(isSquat);
+        if(isSquat)
+        {
+            _crouchController.SetInputCrouch();
+            SendCrouch();
+        }
+
         _player.SetInput(inputH, inputV, mouseX * _mouseSensetivity);
         _player.RotateX(-mouseY * _mouseSensetivity);
 
@@ -43,6 +49,11 @@ public class Controller : MonoBehaviour
         }
 
         SendMove();
+    }
+
+    private void SendCrouch()
+    {
+        _multiplayerManager.SendMessage("crouch", _multiplayerManager.GetSessionID());
     }
 
     private void SendShoot(ref ShootInfo shootInfo)

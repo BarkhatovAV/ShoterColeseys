@@ -1,4 +1,5 @@
 using Colyseus.Schema;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] private EnemyCharacter _character;
     [SerializeField] private EnemyGun _gun;
+    [SerializeField] private CrouchController _crouchController;
+
     private List<float> _receiveTimeInterval = new List<float> { 0, 0, 0, 0, 0 };
     private float _lastReceiveTime = 0f;
 
@@ -46,6 +49,11 @@ public class EnemyController : MonoBehaviour
     {
         _player.OnChange -= OnChange;
         Destroy(gameObject);
+    }
+
+    public void Crouch()
+    {
+        _crouchController.SetInputCrouch();
     }
 
     private void SaveReceiveTime()
@@ -88,10 +96,10 @@ public class EnemyController : MonoBehaviour
                     velocity.z = (float)dataChange.Value;
                     break;
                 case "rX":
-                    _character.SetRotateX((float)dataChange.Value);
+                    _character.SetRotateX((float)dataChange.Value, AverageInterval);
                     break;
                 case "rY":
-                    _character.SetRotateY((float)dataChange.Value);
+                    _character.SetRotateY((float)dataChange.Value, AverageInterval);
                     break;
                 default:
                     Debug.LogWarning("Не обрабатывается изменение поля" + dataChange.Field);

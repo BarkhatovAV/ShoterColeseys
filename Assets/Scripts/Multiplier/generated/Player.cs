@@ -37,5 +37,8 @@ public partial class Player : Schema {
 
 	[Type(9, "number")]
 	public float rY = default(float);
+
+	[Type(10, "boolean")]
+	public bool isCrouch = default(bool);
 }
 
