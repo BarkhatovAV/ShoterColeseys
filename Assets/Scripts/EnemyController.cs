@@ -26,11 +26,12 @@ public class EnemyController : MonoBehaviour
     }
     private Player _player;
 
-    public void Init(Player player)
+    public void Init(Player player, string key)
     {
         _player = player;
+        _character.Init(key);
         _character.SetSpeed(player.speed);
-        _character.SetMaxHP(player.hp);
+        _character.SetMaxHP(player.maxHP);
         player.OnChange += OnChange;
     }
 
