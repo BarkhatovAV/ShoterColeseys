@@ -1,5 +1,4 @@
 using Colyseus;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +9,7 @@ public class MultiplayerManager : ColyseusManager<MultiplayerManager>
 
     private ColyseusRoom<State> _room;
     private Dictionary<string, EnemyController> _enemies = new Dictionary<string, EnemyController>();
+    [field: SerializeField] public LossCounter _lossCounter { get; private set; }
 
     protected override void Awake()
     {
@@ -79,8 +79,10 @@ public class MultiplayerManager : ColyseusManager<MultiplayerManager>
     {
         var position = new Vector3(player.pX, player.pY, player.pZ);
 
-        player.OnChange += Instantiate(_player, position, Quaternion.identity).OnChange;
+        var playerCharacter = Instantiate(_player, position, Quaternion.identity);
+        player.OnChange += playerCharacter.OnChange;
 
+        _room.OnMessage<string>("Restart", playerCharacter.GetComponent<Controller>().Restart);
 
     }
 

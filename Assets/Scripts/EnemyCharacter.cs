@@ -54,6 +54,11 @@ public class EnemyCharacter : Character
         MultiplayerManager.Instance.SendMessage("damage", data);
     }
 
+    public void RestoreHP(int newValue)
+    {
+        _health.SetCurrent(newValue);
+    }
+
     public void SetMovement(in Vector3 position, in Vector3 velocity, in float averageInterval)
     {
         targetPosition = position + (velocity * averageInterval);
